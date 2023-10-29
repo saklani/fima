@@ -22,16 +22,19 @@ class AuthenticationRepository {
 
   /// Creates an account for a user using an email and password, then, signs in
   /// the user into the account.
+  /// Updates the [AuthenticationState]
   Future<void> signUpWithEmailAndPassword(String email, String password) async {
     throw UnimplementedError();
   }
 
   /// Signs in the user into their existing account.
+  /// Updates the [AuthenticationState]
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     throw UnimplementedError();
   }
 
   /// Signs out a user from their account.
+  /// Updates the [AuthenticationState]
   Future<void> signOut() async {
     throw UnimplementedError();
   }

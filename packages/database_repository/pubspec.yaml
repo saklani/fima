@@ -1,0 +1,22 @@
+name: database_repository
+description: Dart package which manages the data domain.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  authentication_repository:
+    path: ../authentication_repository
+  equatable: ^2.0.5
+  cloud_firestore: ^4.12.1
+  flutter:
+    sdk: flutter
+  meta: ^1.8.0
+  uuid: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.0

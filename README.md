@@ -1,16 +1,17 @@
-# fima
+# Fima - Personal Finance Made Simple
 
-A new Flutter project.
+## Architecture
 
-## Getting Started
+Following the `bloc` library guide, the code is separated into three parts
+1. Presentation
+2. Business Logic
+3. Data
+   - Repository
+   - Data Provider
 
-This project is a starting point for a Flutter application.
+## Data
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. AuthenticationRepository
+   The `AuthenticationRepository` is responsible for managing authentication and fetching user information from `Firebase`. 
+2. DatabaseRepository 
+   The `DatabaseRepository` is responsible for managing user data related to their finances, including the ability to create, update, read, and delete data.

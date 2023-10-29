@@ -1,41 +1,63 @@
 import "models/user.dart";
-import "enums/authentication_state.dart";
+import "package:firebase_auth/firebase_auth.dart" hide User;
 
 /// The actual implementation of the [AuthenticationRepository]
 class AuthenticationRepository {
+  final FirebaseAuth _firebaseAuth;
+
+  AuthenticationRepository({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   /// Returns the current authenticated user or null otherwise
   User? get currentUser {
-    throw UnimplementedError();
+    final firebaseUser = _firebaseAuth.currentUser;
+    return firebaseUser == null
+        ? null
+        : User(id: firebaseUser.uid, email: firebaseUser.email!);
   }
 
   /// A nullable Stream of type [User] which emits each time authentication state
   /// is changed
   Stream<User?> get user {
-    throw UnimplementedError();
-  }
-
-  /// Returns the current [AuthenticationState] of the user
-  Stream<AuthenticationState> get state {
-    throw UnimplementedError();
+    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+      // Assumption: email is always defined since user signs up using emails
+      return firebaseUser == null
+          ? null
+          : User(id: firebaseUser.uid, email: firebaseUser.email!);
+    });
   }
 
   /// Creates an account for a user using an email and password, then, signs in
   /// the user into the account.
-  /// Updates the [AuthenticationState]
-  Future<void> signUpWithEmailAndPassword(String email, String password) async {
-    throw UnimplementedError();
+  Future<void> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e) {}
   }
 
   /// Signs in the user into their existing account.
-  /// Updates the [AuthenticationState]
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
-    throw UnimplementedError();
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e) {}
   }
 
   /// Signs out a user from their account.
-  /// Updates the [AuthenticationState]
   Future<void> signOut() async {
-    throw UnimplementedError();
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {}
   }
 }

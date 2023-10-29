@@ -38,7 +38,9 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
-    } catch (e) {}
+    } catch (e) {
+      // TODO: Handle Errors
+    }
   }
 
   /// Signs in the user into their existing account.
@@ -51,13 +53,17 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
-    } catch (e) {}
+    } catch (e) {
+      // TODO: Handle Errors
+    }
   }
 
   /// Signs out a user from their account.
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
-    } catch (e) {}
+    } catch (e) {
+      // TODO: Handle Errors
+    }
   }
 }

@@ -76,12 +76,14 @@ class DatabaseRepository {
 
   Future<Transaction> createTransaction({
     required User user,
+    required String name,
     required String accountId,
     required BigInt amount,
     required TransactionType transactionType,
   }) async {
     Transaction transaction = Transaction(
       id: Uuid().v4(),
+      name: name,
       amount: amount,
       transactionType: transactionType,
     );
@@ -100,6 +102,7 @@ class DatabaseRepository {
     required User user,
     required String accountId,
     required String transactionId,
+    String? name,
     BigInt? amount,
     TransactionType? transactionType,
   }) async {
@@ -109,6 +112,7 @@ class DatabaseRepository {
       transactionId: transactionId,
     );
     Transaction newTransaction = transaction.copyWith(
+      name: name ?? transaction.name,
       amount: amount ?? transaction.amount,
       transactionType: transactionType ?? transaction.transactionType,
     );

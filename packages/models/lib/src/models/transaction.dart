@@ -9,6 +9,7 @@ part 'transaction.g.dart';
 class Transaction with _$Transaction {
   factory Transaction({
     required String id,
+    required String name,
     required BigInt amount,
     required TransactionType transactionType,
   }) = _Transaction;

@@ -21,6 +21,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Transaction {
   String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   BigInt get amount => throw _privateConstructorUsedError;
   TransactionType get transactionType => throw _privateConstructorUsedError;
 
@@ -36,7 +37,8 @@ abstract class $TransactionCopyWith<$Res> {
           Transaction value, $Res Function(Transaction) then) =
       _$TransactionCopyWithImpl<$Res, Transaction>;
   @useResult
-  $Res call({String id, BigInt amount, TransactionType transactionType});
+  $Res call(
+      {String id, String name, BigInt amount, TransactionType transactionType});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
     Object? amount = null,
     Object? transactionType = null,
   }) {
@@ -60,6 +63,10 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -81,7 +88,8 @@ abstract class _$$TransactionImplCopyWith<$Res>
       __$$TransactionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, BigInt amount, TransactionType transactionType});
+  $Res call(
+      {String id, String name, BigInt amount, TransactionType transactionType});
 }
 
 /// @nodoc
@@ -96,6 +104,7 @@ class __$$TransactionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
     Object? amount = null,
     Object? transactionType = null,
   }) {
@@ -103,6 +112,10 @@ class __$$TransactionImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -120,7 +133,10 @@ class __$$TransactionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TransactionImpl implements _Transaction {
   _$TransactionImpl(
-      {required this.id, required this.amount, required this.transactionType});
+      {required this.id,
+      required this.name,
+      required this.amount,
+      required this.transactionType});
 
   factory _$TransactionImpl.fromJson(Map<String, dynamic> json) =>
       _$$TransactionImplFromJson(json);
@@ -128,13 +144,15 @@ class _$TransactionImpl implements _Transaction {
   @override
   final String id;
   @override
+  final String name;
+  @override
   final BigInt amount;
   @override
   final TransactionType transactionType;
 
   @override
   String toString() {
-    return 'Transaction(id: $id, amount: $amount, transactionType: $transactionType)';
+    return 'Transaction(id: $id, name: $name, amount: $amount, transactionType: $transactionType)';
   }
 
   @override
@@ -143,6 +161,7 @@ class _$TransactionImpl implements _Transaction {
         (other.runtimeType == runtimeType &&
             other is _$TransactionImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType));
@@ -150,7 +169,8 @@ class _$TransactionImpl implements _Transaction {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, amount, transactionType);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, amount, transactionType);
 
   @JsonKey(ignore: true)
   @override
@@ -169,6 +189,7 @@ class _$TransactionImpl implements _Transaction {
 abstract class _Transaction implements Transaction {
   factory _Transaction(
       {required final String id,
+      required final String name,
       required final BigInt amount,
       required final TransactionType transactionType}) = _$TransactionImpl;
 
@@ -177,6 +198,8 @@ abstract class _Transaction implements Transaction {
 
   @override
   String get id;
+  @override
+  String get name;
   @override
   BigInt get amount;
   @override

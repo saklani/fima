@@ -12,8 +12,7 @@ class Account with _$Account {
     required String id,
     required String nickname,
     required BigInt balance,
-    required AccountType accountType,
-    required List<Transaction> transactions,
+    required AccountType accountType
   }) = _Account;
 
   factory Account.fromJson(Map<String, Object?> data) =>

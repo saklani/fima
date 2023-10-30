@@ -12,9 +12,6 @@ _$AccountImpl _$$AccountImplFromJson(Map<String, dynamic> json) =>
       nickname: json['nickname'] as String,
       balance: BigInt.parse(json['balance'] as String),
       accountType: $enumDecode(_$AccountTypeEnumMap, json['accountType']),
-      transactions: (json['transactions'] as List<dynamic>)
-          .map((e) => Transaction.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$$AccountImplToJson(_$AccountImpl instance) =>
@@ -23,7 +20,6 @@ Map<String, dynamic> _$$AccountImplToJson(_$AccountImpl instance) =>
       'nickname': instance.nickname,
       'balance': instance.balance.toString(),
       'accountType': _$AccountTypeEnumMap[instance.accountType]!,
-      'transactions': instance.transactions,
     };
 
 const _$AccountTypeEnumMap = {

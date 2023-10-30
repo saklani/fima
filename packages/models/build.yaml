@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          copy_with: true
+          equal: true

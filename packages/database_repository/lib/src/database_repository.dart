@@ -1,9 +1,6 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
-import 'package:database_repository/src/enums/account_type.dart';
+import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
-
-import 'models/models.dart';
 
 class DatabaseRepository {
   final FirebaseFirestore _firestore;
@@ -11,49 +8,169 @@ class DatabaseRepository {
   DatabaseRepository({FirebaseFirestore? firestore})
       : _firestore = firestore ?? FirebaseFirestore.instance;
 
-  Future<void> createAccount({
+  Future<Account> createAccount({
     required User user,
     required String nickname,
     required BigInt currentBalance,
     required AccountType accountType,
   }) async {
-    try {
-      Account account = Account(
+    Account account = Account(
         id: Uuid().v4(),
         nickname: nickname,
         balance: currentBalance,
-        accountType: accountType,
-        transactions: [],
-      );
-      _firestore.collection(user.id).doc(account.id).set();
+        accountType: accountType);
+    try {
+      await _firestore
+          .collection(user.id)
+          .doc(account.id)
+          .set(account.toJson());
+    } catch (e) {}
+    return account;
+  }
+
+  Future<Account> updateAccount({
+    required User user,
+    required String id,
+    String? nickname,
+    BigInt? currentBalance,
+  }) async {
+    Account account = await getAccount(user: user, id: id);
+    Account newAccount = account.copyWith(
+      nickname: nickname ?? account.nickname,
+      balance: currentBalance ?? account.balance,
+    );
+    try {
+      await _firestore
+          .collection(user.id)
+          .doc(account.id)
+          .update(newAccount.toJson());
+    } catch (e) {}
+    return newAccount;
+  }
+
+  Future<Account> getAccount({required User user, required String id}) async {
+    Map<String, dynamic>? data;
+    try {
+      final snapshot = await _firestore.collection(user.id).doc(id).get();
+      data = snapshot.data();
+    } catch (e) {}
+    if (data == null) throw Error();
+    return Account.fromJson(data);
+  }
+
+  Future<List<Account>> getAccounts({required User user}) async {
+    List<Account> accounts = [];
+    try {
+      final snapshot = await _firestore.collection(user.id).get();
+      snapshot.docs.forEach(
+          (document) => accounts.add(Account.fromJson(document.data())));
+    } catch (e) {}
+    return accounts;
+  }
+
+  Future<void> deleteAccount({required User user, required String id}) async {
+    try {
+      await _firestore.collection(user.id).doc(id).delete();
     } catch (e) {}
   }
 
-  Future<Account> updateAccount() async {
-    throw UnimplementedError();
+  Future<Transaction> createTransaction({
+    required User user,
+    required String accountId,
+    required BigInt amount,
+    required TransactionType transactionType,
+  }) async {
+    Transaction transaction = Transaction(
+      id: Uuid().v4(),
+      amount: amount,
+      transactionType: transactionType,
+    );
+    try {
+      await _firestore
+          .collection(user.id)
+          .doc(accountId)
+          .collection("transactions")
+          .doc(transaction.id)
+          .set(transaction.toJson());
+    } catch (e) {}
+    return transaction;
   }
 
-  Future<List<Account>> getAccount() async {
-    throw UnimplementedError();
+  Future<Transaction> updateTransaction({
+    required User user,
+    required String accountId,
+    required String transactionId,
+    BigInt? amount,
+    TransactionType? transactionType,
+  }) async {
+    Transaction transaction = await getTransaction(
+      user: user,
+      accountId: accountId,
+      transactionId: transactionId,
+    );
+    Transaction newTransaction = transaction.copyWith(
+      amount: amount ?? transaction.amount,
+      transactionType: transactionType ?? transaction.transactionType,
+    );
+    try {
+      await _firestore
+          .collection(user.id)
+          .doc(accountId)
+          .collection("transactions")
+          .doc(transactionId)
+          .update(newTransaction.toJson());
+    } catch (e) {}
+    return newTransaction;
   }
 
-  Future<Account> deleteAccount() async {
-    throw UnimplementedError();
+  Future<Transaction> getTransaction({
+    required User user,
+    required String accountId,
+    required String transactionId,
+  }) async {
+    Map<String, dynamic>? data;
+    try {
+      final snapshot = await _firestore
+          .collection(user.id)
+          .doc(accountId)
+          .collection("transactions")
+          .doc(transactionId)
+          .get();
+      data = snapshot.data();
+    } catch (e) {}
+    if (data == null) throw Error();
+    return Transaction.fromJson(data);
   }
 
-  Future<void> createTransaction() async {
-    throw UnimplementedError();
+  Future<List<Transaction>> getTransactions({
+    required User user,
+    required String accountId,
+  }) async {
+    List<Transaction> transactions = [];
+    try {
+      final snapshot = await _firestore
+          .collection(user.id)
+          .doc(accountId)
+          .collection("transactions")
+          .get();
+      snapshot.docs.forEach((document) =>
+          transactions.add(Transaction.fromJson(document.data())));
+    } catch (e) {}
+    return transactions;
   }
 
-  Future<Transaction> updateTransaction() async {
-    throw UnimplementedError();
-  }
-
-  Future<List<Transaction>> getTransaction() async {
-    throw UnimplementedError();
-  }
-
-  Future<Transaction> deleteTransaction() async {
-    throw UnimplementedError();
+  Future<void> deleteTransaction({
+    required User user,
+    required String accountId,
+    required String transactionId,
+  }) async {
+    try {
+      await _firestore
+          .collection(user.id)
+          .doc(accountId)
+          .collection("transactions")
+          .doc(transactionId)
+          .delete();
+    } catch (e) {}
   }
 }

@@ -24,7 +24,6 @@ mixin _$Account {
   String get nickname => throw _privateConstructorUsedError;
   BigInt get balance => throw _privateConstructorUsedError;
   AccountType get accountType => throw _privateConstructorUsedError;
-  List<Transaction> get transactions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,11 +36,7 @@ abstract class $AccountCopyWith<$Res> {
       _$AccountCopyWithImpl<$Res, Account>;
   @useResult
   $Res call(
-      {String id,
-      String nickname,
-      BigInt balance,
-      AccountType accountType,
-      List<Transaction> transactions});
+      {String id, String nickname, BigInt balance, AccountType accountType});
 }
 
 /// @nodoc
@@ -61,7 +56,6 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
     Object? nickname = null,
     Object? balance = null,
     Object? accountType = null,
-    Object? transactions = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -80,10 +74,6 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
               as AccountType,
-      transactions: null == transactions
-          ? _value.transactions
-          : transactions // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
     ) as $Val);
   }
 }
@@ -96,11 +86,7 @@ abstract class _$$AccountImplCopyWith<$Res> implements $AccountCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
-      String nickname,
-      BigInt balance,
-      AccountType accountType,
-      List<Transaction> transactions});
+      {String id, String nickname, BigInt balance, AccountType accountType});
 }
 
 /// @nodoc
@@ -118,7 +104,6 @@ class __$$AccountImplCopyWithImpl<$Res>
     Object? nickname = null,
     Object? balance = null,
     Object? accountType = null,
-    Object? transactions = null,
   }) {
     return _then(_$AccountImpl(
       id: null == id
@@ -137,10 +122,6 @@ class __$$AccountImplCopyWithImpl<$Res>
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
               as AccountType,
-      transactions: null == transactions
-          ? _value.transactions
-          : transactions // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
     ));
   }
 }
@@ -152,8 +133,7 @@ class _$AccountImpl implements _Account {
       {required this.id,
       required this.nickname,
       required this.balance,
-      required this.accountType,
-      required this.transactions});
+      required this.accountType});
 
   factory _$AccountImpl.fromJson(Map<String, dynamic> json) =>
       _$$AccountImplFromJson(json);
@@ -166,12 +146,10 @@ class _$AccountImpl implements _Account {
   final BigInt balance;
   @override
   final AccountType accountType;
-  @override
-  final List<Transaction> transactions;
 
   @override
   String toString() {
-    return 'Account(id: $id, nickname: $nickname, balance: $balance, accountType: $accountType, transactions: $transactions)';
+    return 'Account(id: $id, nickname: $nickname, balance: $balance, accountType: $accountType)';
   }
 
   @override
@@ -184,15 +162,13 @@ class _$AccountImpl implements _Account {
                 other.nickname == nickname) &&
             (identical(other.balance, balance) || other.balance == balance) &&
             (identical(other.accountType, accountType) ||
-                other.accountType == accountType) &&
-            const DeepCollectionEquality()
-                .equals(other.transactions, transactions));
+                other.accountType == accountType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, nickname, balance,
-      accountType, const DeepCollectionEquality().hash(transactions));
+  int get hashCode =>
+      Object.hash(runtimeType, id, nickname, balance, accountType);
 
   @JsonKey(ignore: true)
   @override
@@ -213,8 +189,7 @@ abstract class _Account implements Account {
       {required final String id,
       required final String nickname,
       required final BigInt balance,
-      required final AccountType accountType,
-      required final List<Transaction> transactions}) = _$AccountImpl;
+      required final AccountType accountType}) = _$AccountImpl;
 
   factory _Account.fromJson(Map<String, dynamic> json) = _$AccountImpl.fromJson;
 
@@ -226,8 +201,6 @@ abstract class _Account implements Account {
   BigInt get balance;
   @override
   AccountType get accountType;
-  @override
-  List<Transaction> get transactions;
   @override
   @JsonKey(ignore: true)
   _$$AccountImplCopyWith<_$AccountImpl> get copyWith =>

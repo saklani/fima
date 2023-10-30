@@ -1,4 +1,4 @@
-import "models/user.dart";
+import "package:models/models.dart" show User;
 import "package:firebase_auth/firebase_auth.dart" hide User;
 
 /// The actual implementation of the [AuthenticationRepository]

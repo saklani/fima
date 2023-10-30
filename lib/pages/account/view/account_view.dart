@@ -5,6 +5,8 @@ import 'package:fima/styles/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../styles/buttons.dart';
+
 class AccountView extends StatelessWidget {
   const AccountView({super.key});
 
@@ -39,7 +41,8 @@ class _AccountInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountCubit, AccountState>(builder: (context, state) {
+    return BlocBuilder<AccountCubit, AccountState>(
+        builder: (context, state) {
       return Column(
         children: [
           Text(
@@ -110,13 +113,13 @@ class _AccountInformation extends StatelessWidget {
 //   }
 // }
 
-class _AddTransactionButton extends StatelessWidget {
-  const _AddTransactionButton({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return RoundedButton(
-        label: "Add Transactions",
-        onPressed: () =>
-            Navigator.of(context).push<void>(AddAccountView.route()));
-  }
-}
+// class _AddTransactionButton extends StatelessWidget {
+//   const _AddTransactionButton({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return RoundedButton(
+//         label: "Add Transactions",
+//         onPressed: () =>
+//             Navigator.of(context).push<void>(AddAccountView.route()));
+//   }
+// }

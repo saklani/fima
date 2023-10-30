@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import '../form/name.dart';
 import '../form/balance.dart';
-part 'add_account_state.dart';
+part 'state.dart';
 
 class AddAccountCubit extends Cubit<AddAccountState> {
   final AuthenticationRepository _authenticationRepository;

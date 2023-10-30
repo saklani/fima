@@ -1,10 +1,9 @@
 import 'package:database_repository/database_repository.dart';
 import 'package:fima/pages/account/account.dart';
 import 'package:fima/pages/add_account/view/add_account_view.dart';
-import 'package:fima/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:fima/pages/dashboard/cubit/cubit.dart';
 import 'package:fima/styles/buttons.dart';
 import 'package:fima/styles/spacing.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -111,7 +110,7 @@ class _AddAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedButton(
-        label: "Add Account",
+        label: "ADD ACCOUNT",
         onPressed: () =>
             Navigator.of(context).push<void>(AddAccountView.route()));
   }

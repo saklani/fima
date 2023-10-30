@@ -1,4 +1,4 @@
-part of 'add_account_cubit.dart';
+part of 'cubit.dart';
 
 class AddAccountState extends Equatable {
 

@@ -1,11 +1,7 @@
-import 'package:database_repository/database_repository.dart';
-import 'package:fima/pages/account/cubit/account_cubit.dart';
-import 'package:fima/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:fima/pages/account/cubit/cubit.dart';
 import 'package:fima/styles/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../styles/buttons.dart';
 
 class AccountView extends StatelessWidget {
   const AccountView({super.key});
@@ -18,10 +14,6 @@ class AccountView extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            Text(
-              "Account",
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
             xlSpacing,
             _AccountInformation(),
             xlSpacing,
@@ -41,8 +33,7 @@ class _AccountInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountCubit, AccountState>(
-        builder: (context, state) {
+    return BlocBuilder<AccountCubit, AccountState>(builder: (context, state) {
       return Column(
         children: [
           Text(

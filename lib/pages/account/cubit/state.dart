@@ -1,4 +1,4 @@
-part of 'account_cubit.dart';
+part of 'cubit.dart';
 
 enum AccountStatus {
   initial,
@@ -21,10 +21,11 @@ class AccountState extends Equatable {
   @override
   List<Object?> get props => [account, transactions, status];
 
-  AccountState copyWith(
-      {Account? account,
-      List<Transaction>? transactions,
-      AccountStatus? status}) {
+  AccountState copyWith({
+    Account? account,
+    List<Transaction>? transactions,
+    AccountStatus? status,
+  }) {
     return AccountState(
       account: account ?? this.account,
       transactions: transactions ?? this.transactions,

@@ -3,14 +3,16 @@ import 'package:bloc/bloc.dart';
 import 'package:database_repository/database_repository.dart';
 import 'package:equatable/equatable.dart';
 
-part 'dashboard_state.dart';
+part 'state.dart';
 
 class DashboardCubit extends Cubit<DashboardState> {
   final AuthenticationRepository authenticationRepository;
   final DatabaseRepository databaseRepository;
 
-  DashboardCubit(this.authenticationRepository, this.databaseRepository)
-      : super(DashboardState());
+  DashboardCubit(
+    this.authenticationRepository,
+    this.databaseRepository,
+  ) : super(DashboardState());
 
   Future<List<Account>> getAccounts() async {
     emit(state.copyWith(status: DashboardStatus.loading));
@@ -18,7 +20,12 @@ class DashboardCubit extends Cubit<DashboardState> {
     try {
       User? user = await authenticationRepository.user.first;
       accounts = await databaseRepository.getAccounts(user: user!);
-      emit(state.copyWith(accounts: accounts, status: DashboardStatus.success));
+      emit(
+        state.copyWith(
+          accounts: accounts,
+          status: DashboardStatus.success,
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(status: DashboardStatus.error));
     }

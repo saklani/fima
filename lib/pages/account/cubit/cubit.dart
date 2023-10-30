@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:database_repository/database_repository.dart';
 import 'package:equatable/equatable.dart';
 
-part 'account_state.dart';
+part 'state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
   final AuthenticationRepository authenticationRepository;
@@ -20,11 +20,16 @@ class AccountCubit extends Cubit<AccountState> {
     try {
       User? user = await authenticationRepository.user.first;
       transactions = await databaseRepository.getTransactions(
-          user: user!, accountId: account.id);
-      emit(state.copyWith(
+        user: user!,
+        accountId: account.id,
+      );
+      emit(
+        state.copyWith(
           account: account,
           transactions: transactions,
-          status: AccountStatus.success));
+          status: AccountStatus.success,
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(status: AccountStatus.error));
     }

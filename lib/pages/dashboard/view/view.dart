@@ -4,7 +4,7 @@ import 'package:fima/pages/dashboard/view/dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/dashboard_cubit.dart';
+import '../cubit/cubit.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});

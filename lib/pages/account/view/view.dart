@@ -4,18 +4,28 @@ import 'package:fima/pages/account/view/account_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/account_cubit.dart';
+import '../cubit/cubit.dart';
 
 class AccountPage extends StatelessWidget {
   final Account account;
-  const AccountPage({super.key, required this.account});
-
+  const AccountPage({
+    super.key,
+    required this.account,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Account"),
+        centerTitle: true,
+      ),
       body: BlocProvider(
-        create: (_) => AccountCubit(context.read<AuthenticationRepository>(), context.read<DatabaseRepository>(), account)..getTransactions(),
+        create: (_) => AccountCubit(
+          context.read<AuthenticationRepository>(),
+          context.read<DatabaseRepository>(),
+          account,
+        )..getTransactions(),
         child: AccountView(),
       ),
     );

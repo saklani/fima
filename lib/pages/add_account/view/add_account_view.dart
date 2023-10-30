@@ -1,6 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:database_repository/database_repository.dart';
-import 'package:fima/pages/add_account/cubit/add_account_cubit.dart';
+import 'package:fima/pages/add_account/cubit/cubit.dart';
 import 'package:fima/pages/add_account/view/add_account_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
